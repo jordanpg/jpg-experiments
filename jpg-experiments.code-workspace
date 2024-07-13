@@ -1,0 +1,35 @@
+{
+    "folders": [
+		{
+			"name": "✨ jpg-experiments",
+			"path": "."
+		},
+		{
+			"name": "🚀 portal",
+			"path": "apps/portal"
+		},
+		{
+			"name": "📦 block-parse",
+			"path": "packages/block-parse"
+		},
+		{
+			"name": "📦 @repo/eslint-config",
+			"path": "packages/eslint-config"
+		},
+		{
+			"name": "📦 @repo/typescript-config",
+			"path": "packages/typescript-config"
+		},
+		{
+			"name": "📦 @repo/ui",
+			"path": "packages/ui"
+		}
+	],
+    "settings": {
+        "typescript.tsdk": ".yarn/sdks/typescript/lib",
+        "typescript.enablePromptUseWorkspaceTsdk": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "eslint.run": "onSave",
+        "editor.formatOnSave": true
+    }
+}

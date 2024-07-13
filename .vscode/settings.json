@@ -3,7 +3,15 @@
     "**/.yarn": true,
     "**/.pnp.*": true
   },
+  "eslint.nodePath": ".yarn/sdks",
   "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always",
+    "source.fixAll.eslint": "always",
+    "source.removeUnusedImports": "always"
+  },
+  "eslint.run": "onSave",
+  "editor.formatOnSave": true
 }

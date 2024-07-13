@@ -5,7 +5,7 @@ const project = resolve(process.cwd(), "tsconfig.json");
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   extends: ["eslint:recommended", "prettier", "turbo"],
-  plugins: ["only-warn"],
+  plugins: ["only-warn", "unused-imports"],
   globals: {
     React: true,
     JSX: true,
@@ -24,11 +24,30 @@ module.exports = {
     // Ignore dotfiles
     ".*.js",
     "node_modules/",
-    "dist/",
+    "dist/"
   ],
   overrides: [
     {
       files: ["*.js?(x)", "*.ts?(x)"],
     },
   ],
+  rules: {
+    "no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+        "warn",
+        {
+            "vars": "all",
+            "varsIgnorePattern": "^_",
+            "args": "after-used",
+            "argsIgnorePattern": "^_",
+        },
+    ],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+      }
+    ],
+  }
 };

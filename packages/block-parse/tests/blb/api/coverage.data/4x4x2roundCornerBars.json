@@ -1,0 +1,26 @@
+{
+    "top": {
+        "cullAdjacent": false,
+        "area": 3
+    },
+    "bottom": {
+        "cullAdjacent": false,
+        "area": 0
+    },
+    "north": {
+        "cullAdjacent": false,
+        "area": 0
+    },
+    "east": {
+        "cullAdjacent": false,
+        "area": 6
+    },
+    "south": {
+        "cullAdjacent": true,
+        "area": 6
+    },
+    "west": {
+        "cullAdjacent": false,
+        "area": 0
+    }
+}

@@ -25,8 +25,8 @@ export function tryParseHeader(
                 desc.type = type;
                 return desc as BLBDescriptor;
             }
+            /* v8 ignore next 4 */
         }
-
         // If we get here without already returning a fully-formed descriptor, then something is very wrong.
         break;
     }

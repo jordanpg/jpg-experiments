@@ -13,3 +13,13 @@ export function parseVec(str: string, length?: number) {
     if (length == undefined) return vec;
     return vec.slice(0, length);
 }
+
+export function stripComments(lines: string[]) {
+    return (
+        lines
+            // Remove any comment-only lines
+            .filter((l) => !/^(?!\n)\s*\/\/.*$/gm.test(l))
+            // Remove any inline comments
+            .map((l) => l.replace(/\s*\/\/.+/, ""))
+    );
+}

@@ -32,7 +32,7 @@ export function tryParseBrickGrid(
     lines: string[],
     blb?: Partial<SpecialDescriptor>,
 ) {
-    const desc = { ...blb } ?? {};
+    const desc = { ...blb };
     const [groups, gridEnd] = extractGridDescription(lines);
 
     const grid: BrickGrid = groups.map((g) =>

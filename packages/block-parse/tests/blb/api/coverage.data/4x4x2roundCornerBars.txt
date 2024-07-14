@@ -1,0 +1,11 @@
+
+
+COVERAGE: // sometimes we have a comment here
+0 : 3
+0 : 0
+0 : 0
+0 : 6
+1 : 6
+0 : 0
+
+

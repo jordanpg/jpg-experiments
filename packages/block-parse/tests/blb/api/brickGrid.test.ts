@@ -6,6 +6,7 @@ import {
     tryParseBrickGrid,
 } from "../../../src/blb/api/brickGrid";
 
+// TODO: migrate these tests to testUtils
 const validTests = ["./brickGrid.data/4x4x2roundCornerBars"].map((f) => [
     path.basename(f),
     path.resolve(__dirname, f),

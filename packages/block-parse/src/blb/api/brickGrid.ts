@@ -13,7 +13,7 @@ export function extractGridDescription(lines: string[]) {
         .reduce(
             (prev: string[][], curr: string) => {
                 // Pop the working group off the top
-                const grp = prev.pop() ?? [];
+                const grp = prev.pop() /* v8 ignore next */ ?? [];
 
                 // Blank lines signify that a new group is beginning
                 if (curr.trim().length < 1) {

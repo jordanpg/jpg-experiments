@@ -98,6 +98,14 @@ export interface Quad {
     normals: FixedLengthArray<Vector3f, 4>;
 }
 
+export const QuadPartHeaders = [
+    "TEX",
+    "POSITION",
+    "COLORS",
+    "UV COORDS",
+    "NORMALS",
+] as const;
+
 export const QuadTexTypes = {
     Top: "TOP",
     BottomLoop: "BOTTOMLOOP",

@@ -6,7 +6,8 @@
     "module": "commonjs",
     "scripts": {
         "lint": "eslint . --max-warnings 0",
-        "test": "vitest --coverage"
+        "test": "vitest --coverage",
+        "test:ui": "vitest --coverage --ui"
     },
     "devDependencies": {
         "@repo/eslint-config": "*",

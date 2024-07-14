@@ -19,7 +19,7 @@ export function parseSideCoverage(line: string): Coverage | null {
 /** Expects coverage data will be in the six lines immediately after a "COVERAGE:" line */
 export default function tryParseCoverage(
     lines: string[],
-    blb?: SpecialDescriptor,
+    blb?: Partial<SpecialDescriptor>,
 ) {
     const desc = { ...blb };
     const startIdx = lines.findIndex((l) => /COVERAGE:/.test(l.trim()));

@@ -4,7 +4,11 @@ import {
     FixedLengthArray,
     Quad,
     QuadPartHeaders,
+    QuadsSide,
+    QuadsSides,
     QuadTexTypes,
+    SideQuadsDescriptor,
+    SpecialDescriptor,
 } from "../types.js";
 
 export function tryParseFace<N extends number>(
@@ -160,4 +164,59 @@ export function tryParseQuad(lines: string[]): Quad | null {
     }
 
     return quad;
+}
+
+export function tryParseQuads(lines: string[], blb?: SpecialDescriptor) {
+    const startRgx = /^----------------([^\s]+) quads:/m;
+    const firstLine = lines.findIndex((l) => startRgx.test(l));
+    if (firstLine < 0) {
+        throw new Error("No header found for quads section!");
+    }
+    const side = startRgx.exec(lines.at(firstLine)!)?.[1]?.toLowerCase() as
+        | QuadsSide
+        | undefined;
+    if (!side || !QuadsSides.some((s) => s === side)) {
+        throw new Error(`Cannot handle invalid quad side "${side}"`);
+    }
+
+    let lastLine = lines.findIndex(
+        (l, idx) => idx > firstLine && startRgx.test(l),
+    );
+    if (lastLine < 0) lastLine = lines.length;
+    let [head, num, ...useLines] = lines.slice(firstLine, lastLine);
+
+    const quads: SideQuadsDescriptor = Object.assign([] as Quad[], {
+        side: side,
+    });
+
+    while (useLines.length) {
+        // Find next non-whitespace line
+        const f = useLines.findIndex((l) => l.trim().length);
+        if (f < 0) {
+            // If there are no more non-whitespace lines,
+            break;
+        }
+        // Find next whitespace or quads-header line, or just use the rest of the lines
+        let l = useLines.findIndex((l) => !l.trim().length || startRgx.test(l));
+        if (l < 0) {
+            l = useLines.length;
+        }
+
+        const quadLines = useLines.slice(f, l);
+        useLines = useLines.slice(l);
+        const q = tryParseQuad(quadLines);
+        if (!q) {
+            continue;
+        }
+
+        quads.push(q);
+    }
+
+    if (!isNaN(Number(num)) && quads.length !== Number(num)) {
+        throw new Error(
+            `Expected ${num} ${side} quads, got ${quads.length} instead!`,
+        );
+    }
+
+    return quads;
 }

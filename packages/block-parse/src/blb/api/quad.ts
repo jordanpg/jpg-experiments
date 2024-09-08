@@ -203,7 +203,7 @@ export function tryParseQuads(lines: string[], blb?: SpecialDescriptor) {
         }
 
         const quadLines = useLines.slice(f, l);
-        useLines = useLines.slice(l);
+        useLines = useLines.slice(f + l);
         const q = tryParseQuad(quadLines);
         if (!q) {
             continue;

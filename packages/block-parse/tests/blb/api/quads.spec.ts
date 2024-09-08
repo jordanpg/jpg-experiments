@@ -4,6 +4,7 @@ import {
     QuadPartParse,
     tryParseFace,
     tryParseQuad,
+    tryParseQuads,
 } from "../../../src/blb/api/quad";
 import { FixedLengthArray, Quad, QuadTexType } from "../../../src/blb/types";
 import { testData } from "../../testUtils";
@@ -289,5 +290,20 @@ describe("#tryParseQuad", async () => {
 
     it.each(data)(`quad parses as expected: $name`, ({ content, expected }) => {
         expect(tryParseQuad(content.split("\n"))).toStrictEqual(expected);
+    });
+});
+
+describe("#tryParseQuads", async () => {
+    const data = await testData(
+        [path.resolve(__dirname, "./quads.data/4x4x2roundCornerBars.quads")],
+        {
+            targets: {
+                expected: "ts",
+            },
+        },
+    );
+
+    it.each(data)(`quads parse as expected: $name`, ({ content, expected }) => {
+        expect(tryParseQuads(content.split("\n"))).toStrictEqual(expected);
     });
 });

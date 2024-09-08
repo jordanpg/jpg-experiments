@@ -1,4 +1,4 @@
-import { Tuple } from "./types.js";
+import type { Tuple } from "./types.js";
 
 export function parseVec<N extends number>(
     str: string,

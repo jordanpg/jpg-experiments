@@ -1,15 +1,15 @@
-import { Tuple } from "../../common/types.js";
+import type { Tuple } from "../../common/types.js";
 import { parseVec } from "../../common/utils.js";
-import {
+import type {
     FixedLengthArray,
     Quad,
     QuadPartHeaders,
+    QuadsDescriptor,
     QuadsSide,
-    QuadsSides,
-    QuadTexTypes,
     SideQuadsDescriptor,
     SpecialDescriptor,
 } from "../types.js";
+import { QuadsSides, QuadTexTypes } from "../types.js";
 
 export function tryParseFace<N extends number>(
     lines: string[],
@@ -166,7 +166,7 @@ export function tryParseQuad(lines: string[]): Quad | null {
     return quad;
 }
 
-export function tryParseQuads(lines: string[], blb?: SpecialDescriptor) {
+export function tryParseQuadsSide(lines: string[]) {
     const startRgx = /^----------------([^\s]+) quads:/m;
     const firstLine = lines.findIndex((l) => startRgx.test(l));
     if (firstLine < 0) {
@@ -184,6 +184,12 @@ export function tryParseQuads(lines: string[], blb?: SpecialDescriptor) {
     );
     if (lastLine < 0) lastLine = lines.length;
     let [head, num, ...useLines] = lines.slice(firstLine, lastLine);
+
+    if (Number.isNaN(Number(num))) {
+        throw new Error(
+            `Expected number for quad count following header, got "${num}" instead`,
+        );
+    }
 
     const quads: SideQuadsDescriptor = Object.assign([] as Quad[], {
         side: side,
@@ -218,5 +224,37 @@ export function tryParseQuads(lines: string[], blb?: SpecialDescriptor) {
         );
     }
 
-    return quads;
+    return [quads, lines.slice(lastLine)] as [SideQuadsDescriptor, string[]];
+}
+
+export function tryParseAllQuads(
+    lines: string[],
+    blb?: Partial<SpecialDescriptor>,
+) {
+    const desc = { ...blb };
+
+    const quads = {} as Partial<QuadsDescriptor>;
+    const pendingSides = new Set(QuadsSides);
+    let workingLines = [...lines];
+    while (workingLines.length) {
+        const [result, l] = tryParseQuadsSide(workingLines);
+        if (!pendingSides.has(result.side)) {
+            throw new Error(
+                `Got duplicate description for side "${result.side}" quads`,
+            );
+        }
+
+        quads[result.side] = result;
+        pendingSides.delete(result.side);
+        workingLines = l;
+    }
+
+    if (pendingSides.size) {
+        throw new Error(
+            `Missing description for quad sides: ${[...pendingSides].join(", ")}`,
+        );
+    }
+
+    desc.quads = quads as QuadsDescriptor;
+    return [desc, workingLines];
 }

@@ -1,8 +1,9 @@
-import {
+import type {
     Coverage,
     CoverageDescriptor,
-    CoverageSides,
-    SpecialDescriptor,
+    SpecialDescriptor} from "../types.js";
+import {
+    CoverageSides
 } from "../types.js";
 
 export function parseSideCoverage(line: string): Coverage | null {
@@ -39,5 +40,8 @@ export default function tryParseCoverage(
         coverage[side] = c;
     });
     desc.coverage = coverage;
-    return desc;
+    return [desc, lines.slice(startIdx + 7)] as [
+        Partial<SpecialDescriptor>,
+        string[],
+    ];
 }

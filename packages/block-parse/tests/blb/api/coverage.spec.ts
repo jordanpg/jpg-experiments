@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import tryParseCoverage, {
     parseSideCoverage,
 } from "../../../src/blb/api/coverage";
-import { Coverage } from "../../../src/blb/types";
+import type { Coverage } from "../../../src/blb/types";
 import { testData } from "../../testUtils";
 
 describe("#parseSideCoverage", () => {
@@ -25,7 +25,7 @@ describe("#tryParseCoverage", async () => {
     ]);
 
     it.each(tests)("expected output ($name)", ({ content, expected }) => {
-        expect(tryParseCoverage(content.split("\n")).coverage).toStrictEqual(
+        expect(tryParseCoverage(content.split("\n"))[0].coverage).toStrictEqual(
             expected,
         );
     });

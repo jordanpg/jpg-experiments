@@ -27,6 +27,7 @@ export interface SpecialDescriptor extends BaseDescriptor {
     type: "SPECIAL";
     coverage: CoverageDescriptor;
     grid: BrickGrid;
+    quads: QuadsDescriptor;
 }
 
 export type BLBDescriptor = BrickDescriptor | SpecialDescriptor;

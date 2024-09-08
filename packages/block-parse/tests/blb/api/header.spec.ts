@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { tryParseHeader } from "../../../src/blb/api/header";
-import { BLBType } from "../../../src/blb/types";
+import type { BLBType } from "../../../src/blb/types";
 
 describe("#blbParseHeader", () => {
     it("throws on invalid input", () => {
@@ -31,7 +31,7 @@ describe("#blbParseHeader", () => {
         ];
 
         tests.forEach((v) =>
-            expect(tryParseHeader(v[0]).size).toStrictEqual(v[1]),
+            expect(tryParseHeader(v[0])[0].size).toStrictEqual(v[1]),
         );
     });
     it("produces proper type", () => {
@@ -43,7 +43,7 @@ describe("#blbParseHeader", () => {
         ];
 
         tests.forEach((v) =>
-            expect(tryParseHeader(v[0]).type).toStrictEqual(v[1]),
+            expect(tryParseHeader(v[0])[0].type).toStrictEqual(v[1]),
         );
     });
 });

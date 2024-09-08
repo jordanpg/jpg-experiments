@@ -1,4 +1,4 @@
-import { Quad } from "../../../../src/blb/types";
+import type { Quad } from "../../../../src/blb/types";
 
 const data: Quad = {
     texture: "TOP",

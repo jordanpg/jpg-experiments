@@ -1,7 +1,6 @@
-/** @type {import("eslint").Linter.Config} */
-
 require("@rushstack/eslint-patch/modern-module-resolution");
 
+/** @type {import("eslint").Linter.Config} */
 module.exports = {
     root: true,
     extends: ["@repo/eslint-config/library.js"],
@@ -11,5 +10,5 @@ module.exports = {
         project: "./tsconfig.lint.json",
         tsconfigRootDir: __dirname,
     },
-    ignorePatterns: ["jest.config.ts"],
+    ignorePatterns: ["vitest.config.ts", "rslib.config.ts"],
 };

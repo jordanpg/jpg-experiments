@@ -39,9 +39,9 @@ describe("#tryParseBrickGrid", () => {
             const expected = (await import(file + ".grid.json").then(
                 (module) => module.default,
             )) as string[][];
-            expect(tryParseBrickGrid(content.split("\n")).grid).toStrictEqual(
-                expected,
-            );
+            expect(
+                tryParseBrickGrid(content.split("\n"))[0].grid,
+            ).toStrictEqual(expected);
         },
     );
     it("throws error for invalid brick grid cell", () => {

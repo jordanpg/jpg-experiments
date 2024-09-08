@@ -1,4 +1,4 @@
-import { BLBDescriptor, BrickDescriptor, SpecialDescriptor } from "../types.js";
+import type { BLBDescriptor, BrickDescriptor, SpecialDescriptor } from "../types.js";
 
 export function isCuboidBLB(desc: BLBDescriptor): desc is BrickDescriptor;
 export function isCuboidBLB(

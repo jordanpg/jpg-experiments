@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { isCuboidBLB, isSpecialBLB } from "../../../src/blb/api/logic";
-import { BLBDescriptor } from "../../../src/blb/types";
+import type { BLBDescriptor } from "../../../src/blb/types";
 
 describe("#blbDescriptorDiscriminators", () => {
     it("categorizes cuboid", () => {

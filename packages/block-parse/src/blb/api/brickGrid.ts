@@ -1,8 +1,9 @@
-import {
+import type {
     BrickGrid,
     BrickGridCell,
-    BrickGridCellType,
-    SpecialDescriptor,
+    SpecialDescriptor} from "../types.js";
+import {
+    BrickGridCellType
 } from "../types.js";
 
 export function extractGridDescription(lines: string[]) {
@@ -58,5 +59,8 @@ export function tryParseBrickGrid(
     );
     desc.grid = grid;
 
-    return desc;
+    return [desc, lines.slice(gridEnd)] as [
+        Partial<SpecialDescriptor>,
+        string[],
+    ];
 }
